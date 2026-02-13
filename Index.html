@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>💘 For Emily</title>
+  <style>
+    :root{
+      --bg1:#ffdde1;
+      --bg2:#ee9ca7;
+      --card:#ffffffcc;
+      --text:#2b2b2b;
+      --accent:#ff2d55;
+      --accent2:#ff7aa2;
+      --shadow: 0 18px 60px rgba(0,0,0,.18);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+      font-family: ui-rounded, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background:
+        radial-gradient(1200px 800px at 20% 10%, #fff6f7 0%, transparent 55%),
+        radial-gradient(1000px 700px at 90% 40%, #ffe8ee 0%, transparent 55%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      overflow:hidden;
+    }
+
+    .bg-heart{
+      position:fixed;
+      left:var(--x);
+      top:110vh;
+      font-size:var(--s);
+      opacity:.25;
+      animation: floatUp var(--t) linear infinite;
+      pointer-events:none;
+    }
+    @keyframes floatUp{
+      to{ transform: translateY(-230vh) rotate(360deg); }
+    }
+
+    .wrap{ width:min(560px, 92vw); padding:22px; }
+    .card{
+      background:var(--card);
+      backdrop-filter: blur(10px);
+      border-radius:28px;
+      box-shadow:var(--shadow);
+      padding:28px 22px;
+      text-align:center;
+      position:relative;
+    }
+    .pill{
+      display:inline-block;
+      padding:10px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,.7);
+      font-weight:700;
+      font-size:14px;
+    }
+    h1{ margin:16px 0 8px; font-size:34px }
+    p{ opacity:.85 }
+
+    .polaroid{
+      margin:18px auto;
+      width:260px;
+      aspect-ratio:4/3;
+      border-radius:18px;
+      background:linear-gradient(135deg,#ffd1dc,#fff0f3);
+      display:grid;
+      place-items:center;
+      font-size:64px;
+      transform: rotate(-1.2deg);
+    }
+
+    .question{ font-size:22px; font-weight:900 }
+
+    .btns{
+      position:relative;
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      min-height:60px;
+      margin-top:14px;
+    }
+
+    button{
+      border:0;
+      padding:14px 18px;
+      border-radius:14px;
+      font-weight:900;
+      cursor:pointer;
+    }
+    .yes{
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      color:#fff;
+    }
+    .no{
+      background:#fff;
+      border:1px solid #ddd;
+      position:absolute;
+    }
+
+    .overlay{
+      position:fixed;
+      inset:0;
+      display:none;
+      place-items:center;
+      background:rgba(0,0,0,.25);
+    }
+    .modal{
+      background:#fff;
+      border-radius:26px;
+      padding:24px;
+      text-align:center;
+      width:min(520px,90vw);
+    }
+  </style>
+</head>
+
+<body>
+
+<script>
+  (function(){
+    const hearts=["💗","💖","💘","💕","❤️"];
+    for(let i=0;i<26;i++){
+      const h=document.createElement("div");
+      h.className="bg-heart";
+      h.textContent=hearts[Math.floor(Math.random()*hearts.length)];
+      h.style.setProperty("--x",Math.random()*100+"vw");
+      h.style.setProperty("--s",14+Math.random()*30+"px");
+      h.style.setProperty("--t",10+Math.random()*20+"s");
+      document.body.appendChild(h);
+    }
+  })();
+</script>
+
+<div class="wrap">
+  <div class="card" id="card">
+    <div class="pill">💌 official message for Emily</div>
+    <h1>Emily… 🥺💘</h1>
+    <p>This was made by <b>Daire</b> using love, chaos, and zero dignity.</p>
+
+    <div class="polaroid">🕯️🌹</div>
+
+    <div class="question">Will you be my Valentine?</div>
+    <p style="font-size:14px">Disclaimer: “No” will attempt to flee.</p>
+
+    <div class="btns" id="btnArea">
+      <button class="yes" id="yesBtn">Yes 💘</button>
+      <button class="no" id="noBtn">No 🙃</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <h2>EMILY SAID YES 💞</h2>
+    <p>
+      Congratulations 🎉<br>
+      You’ve unlocked a Valentine’s date with <b>Daire</b> 🥹❤️<br>
+      Snacks included.
+    </p>
+    <button onclick="overlay.style.display='none'">Close</button>
+  </div>
+</div>
+
+<script>
+  const noBtn=document.getElementById("noBtn");
+  const yesBtn=document.getElementById("yesBtn");
+  const overlay=document.getElementById("overlay");
+  const area=document.getElementById("btnArea");
+
+  const lines=[
+    "No 🙃","No? 😳","Emily pls 😭","Stop chasing me 😂",
+    "I’m fast 🏃‍♂️","YES is easier 💘","Ok enough 😅"
+  ];
+  let i=0;
+
+  function moveNo(){
+    i++;
+    noBtn.textContent=lines[Math.min(i,lines.length-1)];
+    noBtn.style.left=Math.random()*(area.clientWidth-80)+"px";
+    noBtn.style.top=Math.random()*40+"px";
+  }
+
+  noBtn.addEventListener("mouseenter",moveNo);
+  noBtn.addEventListener("click",moveNo);
+  yesBtn.addEventListener("click",()=>overlay.style.display="grid");
+</script>
+
+</body>
+</html>
